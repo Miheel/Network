@@ -1,0 +1,27 @@
+[18:57:55 INFO]: Starting client version 1.2
+[18:57:55 INFO]: Loading properties
+[18:57:55 INFO]: Starting client on www.ingonline.nu:80
+[18:57:55 INFO]: HTTP/1.1 200 OK
+Date: Wed, 01 May 2019 16:57:58 GMT
+Server: Apache
+X-Powered-By: PHP/7.2.18
+Vary: Accept-Encoding
+Content-Type: text/html; charset=UTF-8
+X-Varnish: 372215756
+Age: 0
+Via: 1.1 varnish (Varnish/6.2)
+Accept-Ranges: bytes
+Content-Length: 214
+Connection: close
+
+<html>
+
+<head>
+<TITLE>Luffarschack</TITLE>
+</head>
+
+<body>
+
+<b> Luffarschack (3x3)</b><br>
+<br><u>Före</u><br>x o e<br>o e x<br>x o e<br><br><br><u>Efter</u><br>e o x<br>o e x<br>x o e<br></body>
+</html>
