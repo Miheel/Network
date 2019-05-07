@@ -122,6 +122,8 @@ Connection: close\r\n\r\n"
         t_stamp_print(data)
         
         client_socket.close()
+        
+        input()
 
     else:
         t_stamp_print("You need to agree to the EULA in order to run the client")

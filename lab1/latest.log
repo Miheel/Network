@@ -1,13 +1,13 @@
-[18:57:55 INFO]: Starting client version 1.2
-[18:57:55 INFO]: Loading properties
-[18:57:55 INFO]: Starting client on www.ingonline.nu:80
-[18:57:55 INFO]: HTTP/1.1 200 OK
-Date: Wed, 01 May 2019 16:57:58 GMT
+[14:14:55 INFO]: Starting client version 1.2
+[14:14:55 INFO]: Loading properties
+[14:14:55 INFO]: Starting client on www.ingonline.nu:80
+[14:14:55 INFO]: HTTP/1.1 200 OK
+Date: Thu, 02 May 2019 12:14:00 GMT
 Server: Apache
 X-Powered-By: PHP/7.2.18
 Vary: Accept-Encoding
 Content-Type: text/html; charset=UTF-8
-X-Varnish: 372215756
+X-Varnish: 866263691
 Age: 0
 Via: 1.1 varnish (Varnish/6.2)
 Accept-Ranges: bytes
