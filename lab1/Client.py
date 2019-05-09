@@ -57,7 +57,8 @@ def create_missing_file(file_in):
         file_in.write("#Server properties\n#" + FILE_T_STAMP + "\n\
 server-port=80\n\
 server-ip=000.000.000.000\n\
-object=/xxxx/xxxx.html\n")
+object=/xxxx/xxxx.html\n\
+query=?xxxxx=")
 
     if file_in_name == "EULA.txt":
         file_in.write("#By changing the setting below to TRUE you are indicating your eagreement to our EULA\n\
