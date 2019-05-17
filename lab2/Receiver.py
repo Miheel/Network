@@ -1,7 +1,7 @@
 """ UDP Receiver """
 
 import socket as s
-#import time as t
+import time as t
 
 def create_socket(server_port):
     """ creates a socket """
@@ -24,15 +24,19 @@ def main():
     #server_socket = create_socket(25565)
 
     print("The UDP server is ready to recieve")
-    message_test = ["10000;asdgj", "10001;asdgj", "10002;asdgj", "10003;asdgj", "10005;asdgj", \
-"10004;asdgj", "10005;asdgj", "10007;asdgj", "10008;asdgj", "10009;asdgj"]
+    #message_test = ["10000;asdgj", "10001;asdgj", "10002;asdgj", "10003;asdgj", "10005;asdgj", \
+#"10004;asdgj", "10005;asdgj", "10007;asdgj", "10008;asdgj", "10009;asdgj"]
     seq_nr = []
 
     i = 0
-    while i < 10:
+    server_socket = create_socket(12000)
+    
+    while True:
+        message, client_address = server_socket.recvfrom(2048)
 
-        #print(message_test[i][0:5])
-        seq_nr.append(int(message_test[i][0:5]))
+        print("[", t.perf_counter(), "]", message[0:5].decode())
+
+        seq_nr.append(int(message[0:5]))
         if i > 0:
             prev_seq_nr = seq_nr[0]
 
@@ -49,7 +53,7 @@ def main():
 
         i = i + 1
 
-        #message, client_address = server_socket.recvfrom(2048)
+
         #print(message[0:5])
         #print(client_address)
         #modifiedMessage = message.decode().upper()
