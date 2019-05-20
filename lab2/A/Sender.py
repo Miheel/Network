@@ -2,6 +2,9 @@
 
 import socket as s
 import time as t
+import threading as td
+
+TIME_WAIT_SEC = 0.02'
 
 def read_file(file_name):
     """
@@ -29,18 +32,24 @@ def send_packets(packets, sock, addr):
     send packet
     """
     data = split_into_packets(packets, 1300)
-
     seq_nr = 10000
     separator = ";"
     packet = 0
-    #t_end = t.time() + 20 t.time() < t_end and 
-    while packet <= 400 and packet < len(data):
+    #t_end = t.time() + 20 t.time() < t_end and
+    ticker = td.Event()
+	start_time = t.time()
+	
+    while not ticker.wait(TIME_WAIT_SEC) and packet < len(data):
+        end_time = t.time()
         payload = str(seq_nr) + separator + data[packet]
-        seq_nr = int(seq_nr) + 1
-        print("[", t.perf_counter(), "]", payload[0:6])
+
+        print("[%.3f %d] %s" % (end_time - start_time, packet % 20, payload[0:6]))
         sock.sendto(payload.encode(), addr)
+		
+        seq_nr = int(seq_nr) + 1		
         packet = packet + 1
-        t.sleep(0.05)
+		
+		#t.sleep(0.0498)
 
 def main():
     """

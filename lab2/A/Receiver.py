@@ -30,11 +30,11 @@ def main():
 
     i = 0
     server_socket = create_socket(12000)
-    
+
     while True:
         message, client_address = server_socket.recvfrom(2048)
 
-        print("[", t.perf_counter(), "]", message[0:5].decode())
+        print("[", client_address, t.perf_counter(), "]", message[0:5].decode())
 
         seq_nr.append(int(message[0:5]))
         if i > 0:
@@ -52,7 +52,7 @@ def main():
                 err_log(-1, i + 1)
 
         i = i + 1
-
+    
 
         #print(message[0:5])
         #print(client_address)
