@@ -2,12 +2,13 @@
 
 import socket as s
 import time as t
+import sys
 
 def create_socket(server_port):
     """ creates a socket """
 
     server_socket = s.socket(s.AF_INET, s.SOCK_STREAM)
-    server_socket.bind(('', server_port))
+    server_socket.bind(('localhost', server_port))
     server_socket.listen(1)
     return server_socket
 
@@ -22,39 +23,37 @@ def err_log(err, msg):
 
 def main():
     """ main """
-    #server_socket = create_socket(25565)
-
-    print("The UDP server is ready to recieve")
-    #message_test = ["10000;asdgj", "10001;asdgj", "10002;asdgj", "10003;asdgj", "10005;asdgj", \
-#"10004;asdgj", "10005;asdgj", "10007;asdgj", "10008;asdgj", "10009;asdgj"]
+	
     seq_nr = []
 
     i = 0
     server_socket = create_socket(12000)
-
+	
     while True:
+        print('waiting for a connection')
         conn_sock, client_address = server_socket.accept()
+		
+        while True:
 
-        message = conn_sock.recv(2048).decode()
+            message = conn_sock.recv(2048).decode()
+            print("[", client_address, t.perf_counter(), "]", message[0:5])
 
-        print("[", client_address, t.perf_counter(), "]", message[0:5])
-
-        seq_nr.append(int(message[0:5]))
-        if i > 0:
-            prev_seq_nr = seq_nr[0]
-
-            new_seq_nr = seq_nr[i]
-
-            prev_seq_nr = prev_seq_nr + i
-
-            #om de nyaste är större (två eller mer) än den tidigare
-            if new_seq_nr > prev_seq_nr:
-                err_log(1, i + 1)
-            #om dew nyaste är mindre an de tidagaste
-            elif new_seq_nr < prev_seq_nr:
-                err_log(-1, i + 1)
-
-        i = i + 1
+            #seq_nr.append(int(message[0:5]))
+            #if i > 0:
+            #    prev_seq_nr = seq_nr[0]
+            
+            #    new_seq_nr = seq_nr[i]
+            
+            #    prev_seq_nr = prev_seq_nr + i
+            
+                #om de nyaste är större (två eller mer) än den tidigare
+            #    if new_seq_nr > prev_seq_nr:
+            #        err_log(1, i + 1)
+                #om dew nyaste är mindre an de tidagaste
+            #    elif new_seq_nr < prev_seq_nr:
+            #        err_log(-1, i + 1)
+            
+            #i = i + 1
         conn_sock.close()
 
     print(seq_nr)

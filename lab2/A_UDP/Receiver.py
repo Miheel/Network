@@ -21,7 +21,6 @@ def err_log(err, msg):
 
 def main():
     """ main """
-    #server_socket = create_socket(25565)
 
     print("The UDP server is ready to recieve")
     #message_test = ["10000;asdgj", "10001;asdgj", "10002;asdgj", "10003;asdgj", "10005;asdgj", \
@@ -37,11 +36,10 @@ def main():
         print("[", client_address, t.perf_counter(), "]", message[0:5].decode())
 
         seq_nr.append(int(message[0:5]))
+
         if i > 0:
             prev_seq_nr = seq_nr[0]
-
             new_seq_nr = seq_nr[i]
-
             prev_seq_nr = prev_seq_nr + i
 
             #om de nyaste är större (två eller mer) än den tidigare
@@ -52,12 +50,6 @@ def main():
                 err_log(-1, i + 1)
 
         i = i + 1
-    
-
-        #print(message[0:5])
-        #print(client_address)
-        #modifiedMessage = message.decode().upper()
-        #server_socket.sendto(modifiedMessage.encode(), client_address)
 
     print(seq_nr)
 

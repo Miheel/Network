@@ -2,7 +2,7 @@
 
 import socket as s
 import time as t
-import threading as td
+import sys
 
 def read_file(file_name):
     """
@@ -32,7 +32,7 @@ def split_into_packets(data, data_size):
 
     return packets
 
-def send_packets(packets, c_sock):
+def send_packets(packets, c_socket, addr_info):
     """
     send packet
     """
@@ -46,20 +46,22 @@ def send_packets(packets, c_sock):
     t_end = t.time() + 20
     start_time = t.time()
 
-    while t.time() < t_end and packet < len(data): #400 1000:
+    while t.time() < t_end or packet < 400:#len(data): #400 1000:
+
         end_time = t.time()
         payload = str(seq_nr) + separator + data[packet]
 
-        #print("[%.3f %d] %s" % (end_time - start_time, packet % 20, payload[0:6]))
+        print("[%.3f %d] %s" % (end_time - start_time, packet % 20, payload[0:6]))
         log_data = log_data + str("[%.3f %d] %s" % (end_time - start_time, packet % len(data), payload[0:6])) + "\n"
-
-        c_sock.send(payload.encode())
 		
+        c_socket.send(payload.encode())
+			
         seq_nr = int(seq_nr) + 1		
         packet = packet + 1
-        #t.sleep(0.0498) #20/sec
+		
+        t.sleep(0.0498) #20/sec
         #t.sleep(0.0200) #50/sec
-        t.sleep(0)
+        #t.sleep(0)
 
     log_file(log_data)
 
@@ -68,15 +70,12 @@ def main():
     main
     """
     data_str = read_file("data.txt")
-    server_name = '80.78.216.114'
+    server_name = 'localhost'
     server_port = 12000
     addr_info = (server_name, server_port)
-
-    client_socket = s.socket(s.AF_INET, s.SOCK_STREAM)
-    
+    client_socket = s.socket(s.AF_INET, s.SOCK_STREAM)	
     client_socket.connect(addr_info)
-
-    send_packets(data_str, client_socket)
+    send_packets(data_str, client_socket, addr_info)
 
     client_socket.close()
     

@@ -46,7 +46,7 @@ def send_packets(packets, sock, addr):
     t_end = t.time() + 20
     start_time = t.time()
 
-    while t.time() < t_end and packet < len(data): #400 1000:
+    while t.time() < t_end or packet < 400:#len(data): #400 1000:
         end_time = t.time()
         payload = str(seq_nr) + separator + data[packet]
 
@@ -57,9 +57,9 @@ def send_packets(packets, sock, addr):
 		
         seq_nr = int(seq_nr) + 1		
         packet = packet + 1
-        #t.sleep(0.0498) #20/sec
+        t.sleep(0.0498) #20/sec
         #t.sleep(0.0200) #50/sec
-        t.sleep(0)
+        #t.sleep(0)
 
     log_file(log_data)
 
@@ -68,7 +68,7 @@ def main():
     main
     """
     data_str = read_file("data.txt")
-    server_name = '80.78.216.203'
+    server_name = 'localhost'
     server_port = 12000
     addr_info = (server_name, server_port)
 
