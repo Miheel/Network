@@ -2,12 +2,10 @@
 
 import socket as s
 import time as t
-import threading as td
 
 def read_file(file_name):
-    """
-    Reads the data files
-    """
+    """Reads the data files"""
+	
     in_file = open(file_name, "r")
 
     data = ""
@@ -24,18 +22,15 @@ def log_file(log_data):
     out_file.close()
 
 def split_into_packets(data, data_size):
-    """
-    split data into packets
-    """
+    """split data into packets"""
 
     packets = [data[i:i+data_size] for i in range(0, len(data), data_size)]
 
     return packets
 
 def send_packets(packets, sock, addr):
-    """
-    send packet
-    """
+    """send packet"""
+	
     data = split_into_packets(packets, 1300)
     log_data = ""
 
@@ -46,7 +41,7 @@ def send_packets(packets, sock, addr):
     t_end = t.time() + 20
     start_time = t.time()
 
-    while t.time() < t_end or packet < 400:#len(data): #400 1000:
+    while packet < len(data):
         end_time = t.time()
         payload = str(seq_nr) + separator + data[packet]
 
@@ -57,18 +52,15 @@ def send_packets(packets, sock, addr):
 		
         seq_nr = int(seq_nr) + 1		
         packet = packet + 1
-        t.sleep(0.0498) #20/sec
-        #t.sleep(0.0200) #50/sec
-        #t.sleep(0)
+        t.sleep(0.0498)
 
     log_file(log_data)
 
 def main():
-    """
-    main
-    """
+    """main"""
+	
     data_str = read_file("data.txt")
-    server_name = 'localhost'
+    server_name = '80.78.216.148'
     server_port = 12000
     addr_info = (server_name, server_port)
 
